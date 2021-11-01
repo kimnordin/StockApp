@@ -7,10 +7,19 @@
 
 import SwiftUI
 
+var number = 5
+var numbertext = "five"
+
 struct ContentView: View {
+    @State var toggle = true
+    @State var product: Product = Product(name: "Djurgårds Tröja", image: UIImage(named: "difshirt")!, size: "M")
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        Image(uiImage: product.image)
+        Text(addNameAndSize(name: product.name, size: product.size))
+    }
+    
+    func addNameAndSize(name: String, size: String) -> String {
+        return product.name + " " + product.size
     }
 }
 
