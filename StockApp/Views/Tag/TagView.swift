@@ -83,7 +83,6 @@ struct Tag: View, Equatable {
     
     var title: String
     var selected: Bool = false
-    
     var callback: ((Tag) -> ())?
     
     var body: some View {

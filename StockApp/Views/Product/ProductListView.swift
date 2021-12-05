@@ -11,51 +11,71 @@ struct ProductListView: View {
     @EnvironmentObject var products: ProductList
     @State private var presentNew = false
     @State private var edit = false
+    @State var searching = false
+    @State private var searchText = ""
+    
+    var searchResults: [Product] {
+        if searchText.isEmpty {
+            return products.list
+        } else {
+            let matching = products.list.filter {
+                $0.name.range(of: searchText) != nil
+            }
+            return matching
+        }
+    }
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(0..<products.list.count, id: \.self) { product in
-                    ZStack(alignment: .leading) {
-                        NavigationLink(destination: ProductDetailView(product: products.list[product])) {
+            VStack {
+                SearchView(searchText: $searchText, searching: $searching)
+                List {
+                    ForEach(0..<searchResults.count, id: \.self) { product in
+                        ZStack(alignment: .leading) {
+                            NavigationLink(destination: ProductDetailView(product: searchResults[product])) {
+                            }
+                            .opacity(0)
+                            ProductListRow(product: searchResults[product], edit: $edit)
                         }
-                        .opacity(0)
-                        ProductListRow(product: products.list[product], edit: $edit)
+                    }
+                    .onDelete(perform: delete)
+                }
+                .background(NavigationLink(
+                    destination: NewProductView(),
+                    isActive: $presentNew) {
+                    })
+            }
+            .navigationBarTitle(Text("Products"))
+            .navigationBarItems(trailing:
+            HStack {
+                if searching {
+                    Button("Cancel") {
+                        searchText = ""
+                        withAnimation {
+                            searching = false
+                            self.endTextEditing()
+                        }
                     }
                 }
-                .onMove(perform: move)
-                .onDelete(perform: delete)
-            }
-            .background(NavigationLink(
-                destination: NewProductView(),
-                isActive: $presentNew) {
-                })
-            .navigationBarTitle(Text("Products"))
-            .navigationBarItems(leading:
-                                    HStack {
-                Button("Profile") {
+                else {
+                    EditButton()
+                        .simultaneousGesture(TapGesture().onEnded {
+                            withAnimation {
+                                edit.toggle()
+                            }
+                        })
+                    Button("+") {
+                        presentNew = true
+                    }
                 }
-            }
-                                , trailing:
-                                    HStack {
-                EditButton()
-                    .simultaneousGesture(TapGesture().onEnded {
-                        withAnimation {
-                            edit.toggle()
-                        }
-                    })
-                Button("+") {
-                    presentNew = true
-                }
-            }
-            )
+            })
         }
     }
-    private func move(at indexSet: IndexSet, to destination: Int) {
-        products.list.move(fromOffsets: indexSet, toOffset: destination)
-    }
     func delete(at indexSet: IndexSet) {
-        products.list.remove(atOffsets: indexSet)
+        let productsFilteredById = indexSet.map { searchResults[$0].id }
+        _ = productsFilteredById.compactMap { [self] id in
+            products.list.removeAll { $0.id == id }
+        }
     }
 }
 

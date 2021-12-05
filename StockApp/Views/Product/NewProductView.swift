@@ -10,14 +10,14 @@ import SwiftUI
 struct NewProductView: View {
     @Environment(\.presentationMode) var presentation
     @EnvironmentObject var products: ProductList
-    @State var permProduct = Product(name: "")
-    @State var showAlert = false
-    @State var showAction = false
-    @State var changeAlert = false
-    @State var presentModal = false
-    @State var showImagePicker = false
-    @State var selectedTag: Tag?
-    @State var tags = [Tag]()
+    @State private var permProduct = Product(name: "")
+    @State private var showAlert = false
+    @State private var showAction = false
+    @State private var changeAlert = false
+    @State private var presentModal = false
+    @State private var showImagePicker = false
+    @State private var selectedTag: Tag?
+    @State private var tags = [Tag]()
     
     var body: some View {
         GeometryReader { geo in

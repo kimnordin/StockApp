@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 class ProductList: ObservableObject {
-    @Published var list = [testProductData[0], testProductData[1]]
+    @Published var list = [testProductData[0], testProductData[1], testProductData[2], testProductData[3]]
     
     var count: Int {
         return list.count
@@ -55,7 +55,7 @@ class Product: Identifiable, ObservableObject {
 }
 
 enum ProductType: String, CaseIterable {
-    case shirt, pants, shoes, scarf, hat, accessory, undefined
+    case shirt, sweater, jacket, socks, pants, shoes, scarf, hat, accessory, undefined
 }
 
 enum ProductSize: String, CaseIterable {
@@ -74,5 +74,7 @@ enum ProductSize: String, CaseIterable {
 let testProductData = [
     Product(name: "Djurgården Tröja", image: UIImage(named: "difshirt")!, size: .M, type: .shirt, tags: ["DIF", "Erlandsson"]),
     Product(name: "Djurgården Mössa", image: UIImage(named: "difcap")!, size: .ALL, type: .hat, tags: ["DIF", "Winter"]),
+    Product(name: "Djurgården Tjocktröja", image: UIImage(named: "difhoodie")!, size: .XL, type: .sweater, tags: ["DIF", "CCM"]),
+    Product(name: "Djurgården Halsduk", image: UIImage(named: "difscarf")!, size: .ALL, type: .scarf, tags: ["DIF", "Winter"])
 ]
 #endif
