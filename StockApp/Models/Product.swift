@@ -66,8 +66,31 @@ enum ProductSize: String, CaseIterable {
          L = "Large",
          XL = "X Large",
          XXL = "XX Large",
-         ALL = "Fits all",
+         ALL = "Fits All",
          undefined = "Undefined"
+    
+    func index(_ index: Int) -> ProductSize {
+        switch index {
+        case 0:
+            return .XXS
+        case 1:
+            return .XS
+        case 2:
+            return .S
+        case 3:
+            return .M
+        case 4:
+            return .L
+        case 5:
+            return .XL
+        case 6:
+            return .XXL
+        case 7:
+            return .ALL
+        default:
+            return .undefined
+        }
+    }
 }
 
 #if DEBUG

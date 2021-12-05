@@ -18,6 +18,7 @@ struct NewProductView: View {
     @State private var showImagePicker = false
     @State private var selectedTag: Tag?
     @State private var tags = [Tag]()
+    @State private var measures = [Measure]()
     
     var body: some View {
         GeometryReader { geo in
@@ -61,6 +62,7 @@ struct NewProductView: View {
                         })
                             .lineLimit(1)
                             .padding()
+                        MeasureView(buttonList: $measures)
                     }
                 }
                 .fixFlickering()
@@ -103,6 +105,9 @@ struct NewProductView: View {
                 }
             }
             .navigationBarTitle(Text("New Product"))
+            .onAppear {
+                createMeasurements()
+            }
         }
     }
     var sheet: ActionSheet {
@@ -123,7 +128,17 @@ struct NewProductView: View {
                 })
             ])
     }
-    
+    func createMeasurements() {
+        measures = [Measure]()
+        for measure in 0..<ProductSize.allCases.count {
+            var size = String("\(ProductSize.undefined.index(measure))")
+            if ProductSize.undefined.index(measure) == .undefined {
+                size = "None"
+            }
+            let newMeasure = Measure(selected: false, title: size)
+            measures.append(newMeasure)
+        }
+    }
     func stringTags() -> [String] {
         var strTags = [String]()
         for tag in tags {
