@@ -96,8 +96,10 @@ struct NewProductView: View {
                             .foregroundColor(.label)
                     })
                         .padding(.horizontal, 8).lineLimit(1).minimumScaleFactor(0.4)
-                        .background(Color.red)
-                        .cornerRadius(30)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 30)
+                                .stroke(Color.label, lineWidth: 4)
+                        )
                 }
             }
             .navigationBarTitle(Text("New Product"))
