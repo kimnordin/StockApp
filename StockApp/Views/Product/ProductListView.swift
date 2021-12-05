@@ -19,7 +19,7 @@ struct ProductListView: View {
             return products.list
         } else {
             let matching = products.list.filter {
-                $0.name.range(of: searchText) != nil
+                $0.name.range(of: searchText, options: .caseInsensitive) != nil
             }
             return matching
         }
