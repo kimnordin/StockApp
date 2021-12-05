@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct StockAppApp: App {
+    @StateObject private var productList = ProductList()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ProductListView()
+                .environmentObject(productList)
         }
     }
 }
