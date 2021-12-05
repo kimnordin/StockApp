@@ -11,18 +11,14 @@ struct TagView: View {
     var tags: [String]
     var callback : (Tag) -> ()
     
-    @State private var totalHeight
-        // = CGFloat.zero       // << variant for ScrollView/List
-        = CGFloat.infinity   // << variant for VStack
-
+    @State private var totalHeight = CGFloat.infinity
     var body: some View {
         VStack {
             GeometryReader { geometry in
                 self.generateContent(in: geometry)
             }
         }
-        //.frame(height: totalHeight)// << variant for ScrollView/List
-        .frame(maxHeight: totalHeight) // << variant for VStack
+        .frame(maxHeight: totalHeight)
     }
 
     private func generateContent(in g: GeometryProxy) -> some View {
@@ -34,23 +30,22 @@ struct TagView: View {
                 self.item(for: tag)
                     .padding([.horizontal, .vertical], 4)
                     .alignmentGuide(.leading, computeValue: { d in
-                        if (abs(width - d.width) > g.size.width)
-                        {
+                        if (abs(width - d.width) > g.size.width) {
                             width = 0
                             height -= d.height
                         }
                         let result = width
                         if tag == self.tags.last! {
-                            width = 0 //last item
+                            width = 0
                         } else {
                             width -= d.width
                         }
                         return result
                     })
-                    .alignmentGuide(.top, computeValue: {d in
+                    .alignmentGuide(.top, computeValue: { d in
                         let result = height
                         if tag == self.tags.last! {
-                            height = 0 // last item
+                            height = 0
                         }
                         return result
                     })

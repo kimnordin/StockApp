@@ -9,28 +9,8 @@
 import Foundation
 import UIKit
 import SwiftUI
-import CoreMotion
 
 // Types
-extension Int {
-    func times(_ f: () -> ()) {
-        if self > 0 {
-            for _ in 0..<self {
-                f()
-            }
-        }
-    }
-}
-
-extension String {
-    func toImage() -> UIImage? {
-        if let data = Data(base64Encoded: self, options: .ignoreUnknownCharacters){
-            return UIImage(data: data)
-        }
-        return nil
-    }
-}
-
 extension Color {
     static let lightText = Color(UIColor.lightText)
     static let darkText = Color(UIColor.darkText)

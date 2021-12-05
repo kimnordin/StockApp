@@ -1,6 +1,6 @@
 //
-//  productRow.swift
-//  goproductPlus
+//  ProductListRow.swift
+//  StockApp
 //
 //  Created by Kim Nordin on 2020-10-17.
 //

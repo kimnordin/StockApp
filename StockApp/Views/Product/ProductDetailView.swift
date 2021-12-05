@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  ProductDetailView.swift
 //  StockApp
 //
 //  Created by Kim Nordin on 2021-10-23.
