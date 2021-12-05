@@ -10,8 +10,8 @@ import Combine
 
 struct ProductDetailView: View {
     @ObservedObject var product: Product
-    @State var toggle = true
-    @State var amountText = "0" {
+    @State private var toggle = true
+    @State private var amountText = "0" {
         didSet {
             verifyAmount()
         }
