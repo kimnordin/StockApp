@@ -26,8 +26,6 @@ struct ProductListRow: View {
                     .lineLimit(2)
                 Text("\(product.amount)")
                     .font(.title2)
-//                Text("Type: " + product.type.rawValue)
-//                Text("Size: " + product.size.rawValue)
             }
             Spacer()
         }
