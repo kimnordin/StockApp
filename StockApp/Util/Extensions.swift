@@ -39,6 +39,16 @@ extension View {
     ) -> some View {
         self.modifier(CustomDialog(isShowing: isShowing, dialogContent: dialogContent))
     }
+    func conditionalModifier<M1: ViewModifier, M2: ViewModifier>
+    (on condition: Bool, trueCase: M1, falseCase: M2) -> some View {
+        Group {
+            if condition {
+                self.modifier(trueCase)
+            } else {
+                self.modifier(falseCase)
+            }
+        }
+    }
 }
 
 extension UIAlertController {

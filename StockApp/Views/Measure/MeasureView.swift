@@ -7,32 +7,49 @@
 
 import SwiftUI
 
-struct Measure {
+struct Measure: View {
     var id = UUID()
-    var selected: Bool
+    @State var selected: Bool = false
     var title: String
+    var callback: ((Measure) -> ())?
+
+    var body: some View {
+        Text(title)
+            .onTapGesture {
+                selected.toggle()
+                if let closure = callback {
+                    closure(self)
+                    print(title)
+                    
+                }
+            }
+            .padding(8)
+            .font(.body)
+            .background(RoundedRectangle(cornerRadius: 8)
+                    .fill(Color.gray.opacity(0.2)))
+            .foregroundColor(selected ? .label : .red)
+    }
 }
 
 struct MeasureView: View {
     @Binding var buttonList: [Measure]
+    var callback : (Measure) -> ()
     var columns = [GridItem(.adaptive(minimum: 50))]
     var body: some View {
         LazyVGrid(columns: columns, spacing: 8, pinnedViews: .sectionHeaders) {
             ForEach(buttonList.indices) { index in
-                Button(action: {
-                    print("Pressed: ", index)
-                    buttonList[index].selected = true
-                }) {
-                    Text(buttonList[index].title)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50)
-                }
+                self.item(for: buttonList[index])
             }
         }
     }
-}
-
-struct MeasureView_Previews: PreviewProvider {
-    static var previews: some View {
-        MeasureView(buttonList: .constant([Measure]()))
+    private func item(for measure: Measure) -> Measure? {
+        Measure(title: measure.title, callback: { measure in
+            let filteredMeasure = buttonList.filter({ $0.id != measure.id })
+            for thisMeasure in filteredMeasure {
+                print("to be unselected: ", thisMeasure.title)
+                thisMeasure.selected = false
+                callback(thisMeasure)
+            }
+        })
     }
 }

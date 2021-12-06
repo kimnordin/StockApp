@@ -62,7 +62,7 @@ struct NewProductView: View {
                         })
                             .lineLimit(1)
                             .padding()
-                        MeasureView(buttonList: $measures)
+                        MeasureView(buttonList: $measures, callback: {_ in })
                     }
                 }
                 .fixFlickering()
