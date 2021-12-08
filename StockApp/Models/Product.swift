@@ -39,12 +39,12 @@ class Product: Identifiable, ObservableObject {
     let id = UUID()
     var name: String
     var image: UIImage?
-    var size: ProductSize = .undefined
-    var type: ProductType = .undefined
+    var size: ProductSize = .Undefined
+    var type: ProductType = .Undefined
     @Published var amount: Int = 0
     var tags = [String]()
     
-    init(name: String, image: UIImage? = nil, size: ProductSize = .undefined, type: ProductType = .undefined, amount: Int = 0, tags: [String] = [String]()) {
+    init(name: String, image: UIImage? = nil, size: ProductSize = .Undefined, type: ProductType = .Undefined, amount: Int = 0, tags: [String] = [String]()) {
         self.name = name
         self.image = image
         self.size = size
@@ -55,7 +55,7 @@ class Product: Identifiable, ObservableObject {
 }
 
 enum ProductType: String, CaseIterable {
-    case shirt, sweater, jacket, socks, pants, shoes, scarf, hat, accessory, undefined
+    case Shirt, Sweater, Jacket, Socks, Pants, Shoes, Scarf, Hat, Accessory, Undefined
 }
 
 enum ProductSize: String, CaseIterable {
@@ -66,15 +66,15 @@ enum ProductSize: String, CaseIterable {
          L = "Large",
          XL = "X Large",
          XXL = "XX Large",
-         ALL = "Fits all",
-         undefined = "Undefined"
+         ALL = "Fits All",
+         Undefined = "Undefined"
 }
 
 #if DEBUG
 let testProductData = [
-    Product(name: "Djurgården Tröja", image: UIImage(named: "difshirt")!, size: .M, type: .shirt, tags: ["DIF", "Erlandsson"]),
-    Product(name: "Djurgården Mössa", image: UIImage(named: "difcap")!, size: .ALL, type: .hat, tags: ["DIF", "Winter"]),
-    Product(name: "Djurgården Tjocktröja", image: UIImage(named: "difhoodie")!, size: .XL, type: .sweater, tags: ["DIF", "CCM"]),
-    Product(name: "Djurgården Halsduk", image: UIImage(named: "difscarf")!, size: .ALL, type: .scarf, tags: ["DIF", "Winter"])
+    Product(name: "Djurgården Tröja", image: UIImage(named: "difshirt")!, size: .M, type: .Shirt, tags: ["DIF", "Erlandsson"]),
+    Product(name: "Djurgården Mössa", image: UIImage(named: "difcap")!, size: .ALL, type: .Hat, tags: ["DIF", "Winter"]),
+    Product(name: "Djurgården Tjocktröja", image: UIImage(named: "difhoodie")!, size: .XL, type: .Sweater, tags: ["DIF", "CCM"]),
+    Product(name: "Djurgården Halsduk", image: UIImage(named: "difscarf")!, size: .ALL, type: .Scarf, tags: ["DIF", "Winter"])
 ]
 #endif

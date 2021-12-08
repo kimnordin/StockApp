@@ -46,7 +46,6 @@ struct NewProductView: View {
                         TextField("Enter a fitting Name for this Product", text: $permProduct.name)
                             .multilineTextAlignment(.center)
                             .padding(EdgeInsets(top: 40, leading: 20, bottom: 20, trailing: 20))
-                        
                         HStack {
                             Text("Tags")
                                 .font(.headline)
